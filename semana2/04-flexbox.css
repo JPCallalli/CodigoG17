@@ -1,0 +1,52 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 2px solid black;    
+}
+
+.menu {
+    background-color: aquamarine;
+    height: 800px;
+    /* flex modifica un elemento que servirá como
+    contendor, estableciendo reglas para los PRIMEROS
+    elementos hijos de ese contenedor */
+    display: flex;
+    /* flex-direction: row column */
+    flex-direction: row;
+    /* alinear en base al eje x, main axis */
+    justify-content: space-evenly;
+    /* alinear en base al croos axis */
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+.link {
+    background-color: peru;
+    height: 100px;
+    width: 100px;
+}
+
+.link:nth-of-type(1){
+    /* flex-grow: 4; */
+}
+
+.link:nth-of-type(2){
+    /* flex-grow: 1; */
+}
+
+.link:nth-of-type(3){
+    
+}
+
+.link:nth-of-type(4){
+    
+}
+
+.link:nth-of-type(5){
+    flex-shrink: 10;
+}
+
+.link:nth-of-type(6){
+    flex-shrink: 5;
+}

@@ -1,0 +1,127 @@
+/* poder utilizar una etiqueta descargada */
+@font-face{
+    /* le puedo poner cualquier nombre */
+    font-family: Montserrat;
+    src: url(./assets/Montserrat-VariableFont_wght.ttf);
+
+}
+/* reset */
+*{
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    /* temporal */
+    border: 1px solid red;
+    
+}
+
+header{
+    /* si no encuentra una pasa a la siguiente */
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 1200px;
+    padding: 100px;
+    margin: 0 auto;
+    /* auto: automático, toma los valores como el
+    navegador mejor lo disponga */
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+}
+
+h2{
+    font-size: 50px;
+}
+
+h3{
+    font-size: 32px;
+}
+
+header > h1 {
+    margin: 40px 0;
+    font-size: 72px;
+}
+
+header > h6{
+    border: 1px solir black;
+    border-radius: 10px;
+}
+
+header > div{
+    display: flex;
+    gap: 10px;
+    margin: 48px auto 64px auto;
+    max-width: 300px;
+    
+}
+
+.btn{
+    width: 150px;
+    height: 70px;
+    padding: 25px;
+    border: 1px solid black;
+    border-radius: 40px;
+    display: block;
+}
+
+.btn:hover{
+    font-weight: bold;
+}
+
+.btn-black{
+    background-color: black;
+    color: white;
+}
+
+#btn-wp{
+    background-color: greenyellow;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    font-size: 64px;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+
+#btn-wp:hover{
+    cursor: pointer;
+    background-color: green;
+    /* box-shadow: hor ver blur spread color */
+    box-shadow: 3px 3px 5px 3px lightgray;
+}
+
+/* section-Resources */
+.container-center{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.resources{
+    text-align: center;
+}
+
+.resources > h2{
+    margin: 96px 0 64px 0;
+}
+
+.resources-cards{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 120px;
+}
+
+.res-card{
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /*flex y grid*/
+}
+
+.res-card > img{
+    height: 225px;
+}
