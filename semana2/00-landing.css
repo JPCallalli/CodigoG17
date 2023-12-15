@@ -13,7 +13,7 @@
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     /* temporal */
-    border: 1px solid red;
+    /* border: 1px solid red; */
     
 }
 
@@ -21,7 +21,9 @@ header{
     /* si no encuentra una pasa a la siguiente */
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    width: 1200px;
+    /* width: 1200px; */
+    max-width: 1200px;
+    /* min-width: 480px; */
     padding: 100px;
     margin: 0 auto;
     /* auto: automático, toma los valores como el
@@ -59,6 +61,12 @@ header > div{
     
 }
 
+.action{
+    display:flex;
+    gap:10px;
+    margin: 48px auto 64px auto;
+    max-width:300px;    
+}
 .btn{
     width: 150px;
     height: 70px;
@@ -97,12 +105,14 @@ header > div{
 
 /* section-Resources */
 .container-center{
-    width: 1200px;
+    /* width: 1200px; */
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .resources{
     text-align: center;
+    width: 100%;
 }
 
 .resources > h2{
@@ -113,6 +123,7 @@ header > div{
     display: flex;
     justify-content: space-between;
     margin-bottom: 120px;
+    width: 100%;
 }
 
 .res-card{
@@ -125,3 +136,41 @@ header > div{
 .res-card > img{
     height: 225px;
 }
+
+/* primera es separando el código como si fueran hojas
+de estilos independientes */
+
+@media screen and (max-width:992px) {
+    .resources-cards{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+@media screen and ()max-width:480px; {
+    
+    header > h1{
+        font-size: calc(36px + 2vw);
+    }
+
+    h2{
+        /* calc( operación ) */
+        /* calc( tamaño minimo + crecimiento) */
+        font-size: calc(20px + 2vw);
+    }
+    
+    .resources-cards{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .res-card{
+        width: 100%;
+    }
+
+    .res-card > img{
+        width: 60%;
+        margin: 0 auto;
+    }
+}
+    
