@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,400&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
     <!-- font aewsome -->
     <link
       rel="stylesheet"
@@ -23,6 +27,24 @@
     <link rel="stylesheet" href="./00-landing.css" />
   </head>
   <body>
+    <!-- Menu -->
+    <nav class="container-center menu">
+      <h3 class="logo">Life Coach CodiGO</h3>
+      <!-- Me va a servir como flag/bandera -->
+      <input type="checkbox" id="checkmenu">
+      
+      <label class="show-menu" for="checkmenu">
+        <i class="fa-solid fa-bars"></i>
+      </label>
+      <ul class="items">
+        <li class="item">link1</li>
+        <li class="item">link2</li>
+        <li class="item">link3</li>
+        <li class="item">link4</li>
+        <i class="fa-solid fa-xmark close-menu"></i>
+      </ul>
+    </nav>
+    <!-- header -->
     <header>
       <h6>Free Webinar!</h6>
       <h1>Transfor Your Life With the Guidance of Certified Life Coach</h1>
@@ -39,7 +61,7 @@
     </header>
     <main>
       <!-- Questions -->
-      <section class="container-center">
+      <section class="container-center questions">
         <div class="question1">
           <i class="fa-solid fa-message"></i>
           <h2>
@@ -47,8 +69,8 @@
             cum?
           </h2>
         </div>
-        <div class="quistion2">
-          <i class="fa-solid fa-message"></i>
+        <div class="question2">
+          <i class="fa-regular fa-message"></i>
           <h2>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium,
             quidem.
