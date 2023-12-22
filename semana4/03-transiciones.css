@@ -12,6 +12,20 @@
     transition-delay: 2s;
 }
 
+.caja2{
+    width: 300px;
+    height: 300px;
+    border: 2px solid red;
+    background-color: chocolate;
+    /* propiedades de transición*/
+    transition-property: all;
+    /* trasition duración */
+    /* s - segundos o ms - milisegundos */
+    transition-duration: 1s;
+    /* retraso de la transición */
+    transition-delay: 2s;
+}
+
 .caja:hover{
     background-color: aquamarine;
     border-radius: 50%;
