@@ -1,0 +1,54 @@
+h1 {
+  color: peru;
+}
+
+h1 {
+  color: blue;
+}
+
+nav {
+  background-color: aquamarine;
+}
+nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+nav ul li {
+  margin: 0 10px;
+}
+nav ul li a {
+  text-decoration: none;
+  color: slateblue;
+}
+
+.btn {
+  padding: 20px;
+  background-color: green;
+  color: white;
+}
+.btn:hover {
+  font-weight: bold;
+  background-color: greenyellow;
+  color: black;
+}
+.btn--shadow {
+  -webkit-box-shadow: 5px 5px 5px 5px black;
+          box-shadow: 5px 5px 5px 5px black;
+}
+
+.noticia, .articulo, .anucio {
+  padding: 0 20px;
+  color: crimson;
+  font-family: 10px;
+}
+
+.articulo {
+  font-weight: bold;
+}
+
+.noticia {
+  background-color: aqua;
+}

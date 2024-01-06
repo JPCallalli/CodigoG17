@@ -1,0 +1,13 @@
+// con el _ en el nombre le estamos indicando al prepocesador que este caso es prepros, que lo ignore y no lo transpile
+
+// Código sin proiblemas
+// Variable
+$primary-color: peru;
+
+h1 {
+    color: $primary-color;
+}
+
+h1 {
+    color: blue;
+}
