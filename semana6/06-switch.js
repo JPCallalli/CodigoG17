@@ -1,60 +1,38 @@
 let opcion = 2;
 let pelicula = "Romántica";
 
-// if (){
-//     opcion = 2;
-// }else if(){
-//     opcion = 3;
-// }
+//switch(la expresion a evaluar)
 
-
-
-// switch (La expresion a evaluar)
-
-switch (opcion){
+switch (opcion) {
     case 1:
-        // Código a ejecutar si la extensión es verdadera
+        //código a ejecutar si la expresión es verdadera
         console.log("Elegiste la opcion 1 personal");
         break;
     case 2:
         console.log("Elegiste la opcion 2 duo");
+        //el break es necesario par que trabaje mi switch
         break;
     case 3:
-        console.log("Elegiste la opcion 3 famliar");
+        console.log("Elegiste la opcion 3 familiar");
         break;
-    default: //else 
-        console.log("Elegiste una opcion no valida");
+    default: //else
+        console.log("Elegiste una opción inválida");
         break;
 }
 
-// Deseo evaluar una expresion mas compleja
+//deseo evaluar una expresión más compleja
 
-switch (true){
+switch(true) {
     case (pelicula === "Comedia" && opcion === 1):
-        console.log("Elegiste la opcion 1 personal con la mascara");
+        console.log("Elegiste la opcion 1 personal con La máscara");
         break;
-    case (pelicula === "Ciencia Ficción" && opcion ===1):
-        console.log("Elegiste la opcion 1 personal con la interstellar");
+    case (pelicula === "Ciencia Ficción" && opcion === 1):
+        console.log("Elegiste la opcion 1 personal con Interstellar");
         break;
     case (pelicula === "Romántica" && opcion === 2):
-        console.log("Elegiste la opcion 2 duo con la bella y la bestia");
-        break
+        console.log("Elegiste la opcion 2 duo con La bella y la bestia");
+        break;
     default:
-        console.log("Elegiste una opcion no valida");
-        break;        
+        console.log("Elegiste una opción inválida");
+        break;
 }
-
-// switch(true) {
-//     case (pelicula === "Comedia" && opcion === 1):
-//         console.log("Elegiste la opcion 1 personal con La máscara");
-//         break;
-//     case (pelicula === "Ciencia Ficción" && opcion === 1):
-//         console.log("Elegiste la opcion 1 personal con Interstellar");
-//         break;
-//     case (pelicula === "Romántica" && opcion === 2):
-//         console.log("Elegiste la opcion 2 duo con La bella y la bestia");
-//         break;
-//     default:
-//         console.log("Elegiste una opción inválida");
-//         break;
-// }

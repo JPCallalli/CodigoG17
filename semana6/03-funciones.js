@@ -1,70 +1,70 @@
-// Podemos pensar en una funcion como en una maquina que va a agrupar ciertas instrucciones
+//Podemos pensar en una función como en una maquina
+//que va a agrupar ciertas instrucciones
 
-// Montar bicicleta es un conjunto de instruciones, pero no pensamos en ese conjunto de instrucciones
-// 1. colocate al costado de la bicicleta
-// 2. sosten la bicicleta
-// 3. levanta la pierna cercana a la bicicleta
-// 4. pasa la pierna por encima de la bicicleta
-// 5. pon el pie por el pedal
+//Montar bicicleta es un conjunto de instrucciones
+//Pero no pensamos en ese conjunto de instrucciones
+//1. colocate al costado de la bicicleta estacionada
+//2. sosten la bicicleta
+//3. levanta la pierna cercana a la bicicleta
+//4. pasa la pierna por encima de la bici
+//5. por el pie en el pedal
 
+//Una función nos va a permitir agrupar ciertas instrucciones
 
-// 
-
-
-// Calcular precio total
-// function nombreDeLafuncion (parámetros) {}
+//calcular precio total
+//function nombreDeLaFuncion(parámetros) {}
 function calcularPrecioTotal(precio){
     let margenGanancia = 1.15;
     let igv = 1.18;
     let precioTotal = precio * margenGanancia * igv;
     console.log("precioTotal: ", precioTotal);
 }
-// Llamo a la funcion por su nombre y de ser necesario le daré unos argumentos
-// nombreFuncion(argumentos)
-calcularPrecioTotal(100);
+//llamo a la función por su nombre y de ser necesario le dare argumentos
+//nombreFuncion(argumentos)
+calcularPrecioTotal(100)
 
-// Máquina
-// varios parámetros, los seraramos por ","
+//Máquina
+//varios parámetros, los separamos por ,
 function calcularViaje(pasajes, estadia, comida){
-    console.log(pasajes)
-    let precioTotal = pasajes + estadia + comida;
-    // Me permite retornar el resultado de algo
-    // va a cortar la ejecucion de mi funcion
+    // console.log(comida);
+    let precioTotal = pasajes + estadia + comida; 
+    //Me permite retornar el resultado de algo
+    //va a cortar la ejecución de mi función
     return precioTotal;
+    // console.log("Hola")
 }
 
 let resultado = calcularViaje(100, 50, 45);
 console.log("resultado: ", resultado);
 
-
-// Ambito global de la función, va a existir para todo el código
+//ámbito global, lo que declaremos fuera de ningún bloque de código va a existir para todo el código
 let bebida = "Chicha Morada";
 
 function grupoPizza(){
-    // ambito, lo que declaremos dentro de un bloque de código definido por {} solamente va a existir dentro de esa función
+    //ámbito, lo que declaremos dentro de un bloque de código definido por {} solamente va a existir en ese bloque
     let aperitivo = "panes al ajo";
-    console.log(`voy a tomar algo de ${bebida}`);
+    console.log(`voy a tomar algo de ${bebida}`)
     console.log(`voy a comer ${aperitivo}`)
 }
 
 grupoPizza();
 
-// console.log(`yo tambien deseo ${aperitivo}`);
+// console.log(`yo también deseo ${aperitivo}`)
 
-//Funciones en JS son Ciudadano de primera clase
-// podemos pasar una funcion como argumento a otra funcion
+//Funciones en JS son Ciudadanos de primera clase
+//podemos pasar una función como argumento a otra función
 
-// preparamos un arroz chaufa
+//preparamos un arroz chaufa
 function picarVegetales(){
-    console.log("picando vegetales")
+    console.log("picando vegetales");
 }
 
 function granearArroz(){
-    console.log("granear Arroz")
+    console.log("graneando arroz");
 }
 
 function freirPolloYHuevo(){
-    console.log("freir Pollo Y Huevo")
+    console.log("Freir Pollo y Huevo");
 }
 
 function prepararArrozChaufa(paso1, paso2, paso3){
@@ -75,28 +75,27 @@ function prepararArrozChaufa(paso1, paso2, paso3){
 
 prepararArrozChaufa(picarVegetales, granearArroz, freirPolloYHuevo);
 
-// Hoisting
-// el hoisting es cuando las funciones y var se mueven al inicio del código
-// Primero estoy llamando a la función
+//Hoisting
+//el hoisting es cuando las funciones se mueven al inicio del código
+//1ero estoy llamando a la función
 saludo();
-// luego la estoy declarando
-function saludo(){
+//luego la estoy declarando
+function saludo() {
     console.log("Hola");
 }
 
-// conocemos esta sintaxis
-// function mombre(){}
+//conocemos esta sintaxis
+//function nombre(){}
 
-// funcion flecha
-// let nombrefuncion = (parametros) => {codigo a ejecutar}
-// Funciones flecha no tienen Hoisting
+//función flecha
+//let nombreFuncion = (parámetros) => {codigoAEjecutar}
+//Funciones flecha no tienen hoisting
 
 // let despedida = (nombre) => {
-//     console.log(`Bye ${nombre}`);
+//     console.log(`bye ${nombre}`);
 // }
-let despedida = (nombre) => `Bye ${nombre}`;
-
+let despedida = (nombre) => `bye ${nombre}`;
 
 console.log(despedida("Juan Renato"));
-console.log(despedida("Jean Paul"));
+console.log(despedida("Tebes"));
 console.log(despedida("2023"));
