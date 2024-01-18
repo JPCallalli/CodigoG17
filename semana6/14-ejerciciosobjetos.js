@@ -63,7 +63,7 @@ for(let i = 0; i < notasFinales.length; i++){
     // let promedio = sumaNotas / j-1
     let promedio = sumaNotas / notasFinales[i].notas.length
     // console.log("sumaNotas ", sumaNotas)
-    // console.log("sumaNotas ", promedio)
+    // console.log("Promedio ", promedio)
     
     if(promedio > 10){
         console.log(`${notasFinales[i].nombre} esta aprobado(a) con una promedio de: ${promedio}`)

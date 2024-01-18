@@ -1,0 +1,15 @@
+.importante{
+    background-color: yellow;
+    color: orangered;
+}
+
+.noticias{
+    color: darkblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.input-class{
+    height:50px;
+    width:100px;
+    border:2px solid blueviolet;
+}
