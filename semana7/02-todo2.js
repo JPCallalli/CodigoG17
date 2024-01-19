@@ -26,16 +26,37 @@ function generarHTMLTareas(tareas){
     for(let i = 0; i < tareas.length; i++){
         // console.log(arrTareas[i]);
         htmlTareas = htmlTareas + `<li>${tareas[i]}</li>`;
-        console.log(htmlTareas);
+        // console.log(htmlTareas);
     }
     //al tener el HTML en formato string dentro de htmlTareas inner de ulTareas
     return htmlTareas;
 }
 
+function dibujarTareasAlInicio(){
+    console.log("AL Inicio", arrTareas);
+    //Obtengo las tareas del local storage
+    let tareasObtenidas = localStorage.getItem("tareas")
+    console.log("tareasObtenidas", tareasObtenidas);
+    //Como estan en formato string las convierto otra vez a un arreglo
+    let arrTareasObtenidas = JSON.parse(tareasObtenidas);
+    console.log("arrTareasObtenidas", arrTareasObtenidas);
+    //Igualando el valor leido del Local Storage en arrTareas
+    //La manera de hacer esto no está de ltodo bien
+    arrTareas = arrTareasObtenidas;
+    console.log("Igualo", arrTareas);
+    //al tenerlas en forma arreglo, las puedo pasar a generar HTMLTareas
+    let htmlTareas = generarHTMLTareas(arrTareasObtenidas);
+    ulTareas.innerHTML = htmlTareas;
+}
+dibujarTareasAlInicio();
+
 //elemento.addEventListener("nombredelevento", function)
 btnAgregar.addEventListener('click', function (){
     // console.log(inputTarea.value);
     arrTareas.push(inputTarea.value);
+    let jsonTareas = JSON.stringify(arrTareas);
+    console.log("jsonTareas",jsonTareas);
+    localStorage.setItem("tareas", jsonTareas);
     // console.table(arrTareas);
     
     //VERSION 1
