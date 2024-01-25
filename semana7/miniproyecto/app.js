@@ -158,27 +158,35 @@ let platoEncontrado = platosPeruanos.find(function(plato){
 return platoEncontrado;
 }
 
-function agregarProductoACarrito(plato) {
+function modificarCarrito(plato, operacion) {
 //2. preguntar si es que este plato ya existe en carritoCompras
 //3. En caso no exista lo vamos a agregar a carrito como un producto Nuevo con cantidad 1
 //4. en caso ya exista solo aumentaremos la cantidad
 
 //el findIndex retornado en plato existe me da -1 si es que es platoNuevo y numeros mayores a -1 (0, 1,2..) en caso el playo ya exista dentro de carritoCompras
-let platoExiste = carritoCompras.findIndex(function(item){
-  return item.id === plato.id;
-})
-if(platoExiste === -1){
-  //Es nuevo!, como es nuevo lo voy a agregar
-  //Y le vamos añadir una nueva propiedad
-  plato.cantidad = 1;
-  carritoCompras.push(plato)
-}else{
-  // console.log(platoExiste)
-  //platoExiste me da la posición/índice de donde esta este plato en el carritoCompras
-  //como ya existe ubicamos con la posición dentro de carritoCompras el plato e incrementamos su cantidad en 1
-  carritoCompras[platoExiste].cantidad++;
-}
-
+  let platoExiste = carritoCompras.findIndex(function(item){
+    return item.id === plato.id;
+  })
+  if(platoExiste === -1){
+    //Es nuevo!, como es nuevo lo voy a agregar
+    //Y le vamos añadir una nueva propiedad
+    plato.cantidad = 1;
+    carritoCompras.push(plato);
+  }else{
+    // console.log(platoExiste)
+    //platoExiste me da la posición/índice de donde esta este plato en el carritoCompras
+    //como ya existe ubicamos con la posición dentro de carritoCompras el plato e incrementamos su cantidad en 1
+    if(operacion === "incrementar"){  
+      carritoCompras[platoExiste].cantidad++;
+    }
+    if(operacion === "disminuir"){  
+      if(carritoCompras[platoExiste].cantidad === 0){
+        return; //retorna un valor y me corta la ejecución de la función que se esta ejecutando
+      }
+      carritoCompras[platoExiste].cantidad--;
+    }
+  }
+  crearBoleta(carritoCompras);
 
 }
 
@@ -213,8 +221,8 @@ function crearCartasComida (listaPlatos) {
         // console.log(evento.target.dataset.id)
         let platoObtenido = encontrarPlato(evento.target.dataset.id);
         // console.log(platoObtenido)
-        agregarProductoACarrito(platoObtenido);
-        crearBoleta(carritoCompras);
+        modificarCarrito(platoObtenido, "incrementar");
+        // crearBoleta(carritoCompras);
         console.table(carritoCompras);
       })
 
@@ -225,34 +233,69 @@ function crearCartasComida (listaPlatos) {
 }
 
 function crearBoleta (carrito) {
-//limpiamos el contenido boleta section
-boletaSection.innerHTML = "";
-//dibujamos su contenido
-carrito.forEach(function(plato){
-  let platoBoleta = document.createElement("div");
-  platoBoleta.classList.add("d-flex");
-  platoBoleta.classList.add("p-3");
-  platoBoleta.classList.add("border");
-  platoBoleta.classList.add("round");
-  platoBoleta.classList.add("mb-3");
-  platoBoleta.innerHTML = `
-    <img src="https://picsum.photos/300" class="w-25 rounded me-3" alt="${plato.nombre}" />
-    <div>
-      <h5 class="text-primary fw-bold">${plato.nombre}</h5>
-      <p>S/ ${plato.precio}</p>
+  //limpiamos el contenido boleta section
+  boletaSection.innerHTML = "";
+  //dibujamos su contenido
+  carrito.forEach(function(plato){
+    let platoBoleta = document.createElement("div");
+    platoBoleta.classList.add("d-flex");
+    platoBoleta.classList.add("p-3");
+    platoBoleta.classList.add("border");
+    platoBoleta.classList.add("round");
+    platoBoleta.classList.add("mb-3");
+    platoBoleta.innerHTML = `
+      <img src="https://picsum.photos/300" class="w-25 rounded me-3" alt="${plato.nombre}" />
       <div>
-        <button class="btn btn-primary btn-sm"> - </button>
-        <span>${plato.cantidad}</span>
-        <button class="btn btn-primary btn-sm"> + </button>
+        <h5 class="text-primary fw-bold">${plato.nombre}</h5>
+        <p>S/ ${plato.precio}</p>
+        <div>
+          <button class="btn btn-primary btn-sm" data-operacion="disminuir"> - </button>
+          <span>${plato.cantidad}</span>
+          <button class="btn btn-primary btn-sm" data-operacion="incrementar"> + </button>
+        </div>
       </div>
-    </div>
-  `;
-  boletaSection.appendChild(platoBoleta);
-})
+    `;
+    let btnDisminuir = platoBoleta.querySelector("[data-operacion='disminuir']");
+    btnDisminuir.addEventListener("click", function(){
+      modificarCarrito(plato, "disminuir");
+    })
+    let btnIncrementar = platoBoleta.querySelector("[data-operacion='incrementar']");
+    btnIncrementar.addEventListener("click", function(){
+      modificarCarrito(plato, "incrementar");
+    })
+    boletaSection.appendChild(platoBoleta);
+    //---------------------------------parte del precio
+  })
+  let resumenBoleta = document.createElement("div");
+    // console.log(JSON.stringify(carritoCompras))
+    //cada item de carrito tendra las propiedades precio y cantidad
+    let total = carrito.reduce(function(acum, item){
+      return acum + (item.precio * item.cantidad)
+    }, 0);
+    /*RETO
+    1. Agregar a la tabla el total Unitario por plato, puedes utilizar el método map
+    2. que si la cantidad llega a 0 dentro del carrito se elimine el producto
+    3. un boton abajo del total que me permita guardar la orden en localStorage
+    */
+    resumenBoleta.innerHTML = `
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>IGV:</td>
+          <td>S/ ${(total * 0.18).toFixed(2)}</td>
+        </tr>
+        <tr>
+        <td>TOTAL:</td>
+        <td>S/ ${total.toFixed(2)}</td>
+        </tr>
+      </tbody>
+    </table>
+    `;
+    boletaSection.appendChild(resumenBoleta);
 }
 
 let platosCreados = crearCartasComida(platosPeruanos);
 // console.log(platosCreados)
 platosCreados.forEach(function(carta){
-  platosSection.appendChild(carta);
+    platosSection.appendChild(carta);
 });
