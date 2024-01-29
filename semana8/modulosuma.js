@@ -1,20 +1,25 @@
-const suma = (a,b) => a + b;
+const suma = (a, b) => a + b;
 
-const resta = (a, b) => a-b;
+const resta = (a, b) => a - b;
 
-const multiplicacion = (a, b) => a * b;
+const multiplicación = (a, b) => a * b;
 
 const PI = 3.1415;
 
 const nombre = "Cesar"
 
-const otrosDatos = ["Miguel", "Quispe"];
+const otrosDatos = ["Miguel","Quispe"]
+
+const funcSaludarAPartirDeUnNombre = (nombre) => {
+    return `Hola ${nombre}`
+}
 
 export {
     suma,
     resta,
-    multiplicacion,
+    multiplicación,
     PI,
     nombre,
-    otrosDatos
+    otrosDatos,
+    funcSaludarAPartirDeUnNombre
 }
