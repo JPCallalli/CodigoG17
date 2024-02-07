@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import axios from "axios"
+import ShowColors from "../components/ShowColors"
 
 export default function Dashboard() {
     const [productos, setProductos] = useState([])
@@ -12,9 +14,9 @@ export default function Dashboard() {
     const showColores = (colores, i) => colores.map((color, i) => {
         return (<span 
             key={i}
-            className="badge rounded-pill mx-1" 
+            className="badge rounded-pill mx-1 border border-2" 
             style={{backgroundColor:`${color}`}}>
-                -
+                {" "}
         </span>
         )
     })
@@ -31,6 +33,15 @@ export default function Dashboard() {
     }, [])
   return (
     <>
+    <div className="container p-4">
+        <div className="d-flex justify-content-between py-4">
+            <h1>Productos</h1>
+            <Link to="/crearproducto">
+                <button className="btn btn-dark">
+                    Crear Producto
+                </button>
+            </Link>
+        </div>
         <table className="table">
             <thead>
                 <tr>
@@ -47,14 +58,15 @@ export default function Dashboard() {
                     <tr key={prod.id}>
                         <td>{prod.nombre}</td>
                         <td>{prod.descripcion}</td>
-                        <td>{showColores(prod.color)}</td>
+                        <td><ShowColors colors={prod.color} /></td>
                         <td>S/. {prod.precio}</td>
                         <td>{prod.stock}</td>
                         <td>{}</td>
                     </tr>
                 ))}
             </tbody>
-        </table>    
+        </table>
+    </div>    
     </>
   )
 }
