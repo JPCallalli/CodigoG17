@@ -1,16 +1,29 @@
+// import, el orden a utilizar recomendado es cosas de react, librerias componentes funciones propias
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
 import { saveProduct } from "../services/productService";
+import { uploadFile } from "../services/storageService";
+import Cargando from "../components/Cargando";
+import SelectColors from "../components/SelectColors";
+
+
+let imagenProducto;
 
 export default function ManageProduct() {
     const [form, setForm] = useState({
         nombre: "",
         descripcion: "",
         precio:0,
-        imagen:"https://loremflickr.com/640/480/clothes",
+        imagen:"",
         color:[],
         stock:0,
         review:[]
     })
+
+    const[estaCargando, setEstaCargando] = useState(false);
+
+    const navigate= useNavigate();
 
     const changeForm = (evento) => {
         // console.log("NAME",evento.target.name)
@@ -22,12 +35,44 @@ export default function ManageProduct() {
         setForm(copyStateForm)
     }
 
+    const handleImage = (evento) => {
+        // console.log("HANDLE IMAGE",evento.target.files)
+        imagenProducto = evento.target.files[0]
+    }
+
     const handleCreate = () => {
+        setEstaCargando(true)
         // console.log({ form })
-        saveProduct(form)
-        .then(respuesta => {
-          alert(`Se creo el producto ${respuesta.nombre}`)
+        uploadFile(imagenProducto, "Fotos")
+        .then(urlImagen => {
+            // console.log(respuesta)
+            return saveProduct({...form, imagen: urlImagen})
         })
+        .then(() => {
+            setEstaCargando(false)
+            // alert(`Se creó el producto ${form.nombre}`)
+            return swal.fire({
+                icon: 'success',
+                title: 'Producto creado',
+                text: `Se creó el producto ${form.nombre}`
+            })
+        })
+        // aqui podriamos capturar el resultado de dar clik al boton de confirmación
+        .then(() => {
+            // en navigate (indicamos en forma de string a que ruta dedemos ir)
+            navigate("/")
+        })
+        .catch(error => {
+            console.log(error);
+        })
+      }
+
+      const handleColor = (newColor) =>{
+        setForm({...form, color:[...form.color, newColor]})
+      }
+
+      if(estaCargando) {
+        return <Cargando />
       }
 
     return (
@@ -85,6 +130,22 @@ export default function ManageProduct() {
                         onChange={(evento) => {changeForm(evento)}}
                     />
                 </div>
+
+                <div className="mb-3">
+                    <label 
+                        className="form-label" 
+                        htmlFor="inputImagen"
+                    >
+                        Imagen a guardar
+                    </label>
+                    <input 
+                        id="inputImagen"
+                        type="file"
+                        className="form-control"
+                        onChange={handleImage}   
+                    />
+                </div>
+
                 <div className="mb-3">
                     <label 
                         className="form-label" 
@@ -102,6 +163,7 @@ export default function ManageProduct() {
                         onChange={(evento) => {changeForm(evento)}}
                     />
                 </div>
+                <SelectColors colors = {form.color} handleColor={handleColor} />
                 <button
                     className="btn btn-primary btn-lg"
                     type="button"

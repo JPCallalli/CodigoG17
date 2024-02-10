@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import ShowColors from "../components/ShowColors"
+import { deleteProduct, getProducts } from "../services/productService"
+import Swal from "sweetalert2"
 
 export default function Dashboard() {
     const [productos, setProductos] = useState([])
@@ -11,24 +13,49 @@ export default function Dashboard() {
      * 2.1 transformarlo
      * 3. mostrar esos datos
      */
-    const showColores = (colores, i) => colores.map((color, i) => {
-        return (<span 
-            key={i}
-            className="badge rounded-pill mx-1 border border-2" 
-            style={{backgroundColor:`${color}`}}>
-                {" "}
-        </span>
-        )
-    })
+   
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: 'Estas seguro de eliminar el producto?',
+            text: "No podras revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "No, cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                return deleteProduct(id);
+            }else  if (result.isDismissed){
+                // para detener el flujo del encadenamiento forzamos un error
+                throw new Error("No se puede eliminar el producto")
+            }
+        }).then((rpta) => {
+            console.log(rpta)
+            return Swal.fire({
+                icon: 'success',
+                title: 'Producto Eliminado',
+            })
+        })
+         .then(() => {
+            // filtra los productos que no coincidan con el id que se quiere eliminar
+            return getProducts()
+         })
+         .then((response) => {
+            setProductos(response)
+         })
+         .catch((err) => {
+            console.error(err)
+         })
+    }
 
     useEffect(() => {
-        axios.get('https://616b5ead16c3fa001717167c.mockapi.io/productos')
-        .then((rpta) => {
-            console.table('RPTA',rpta.data)
-            setProductos(rpta.data)
+        getProducts()
+        .then((response) => {
+            setProductos(response)
         })
-        .catch((err) => {
-            console.error(err)
+        .catch((error) => {
+            console.log(error)
         })
     }, [])
   return (
@@ -61,7 +88,19 @@ export default function Dashboard() {
                         <td><ShowColors colors={prod.color} /></td>
                         <td>S/. {prod.precio}</td>
                         <td>{prod.stock}</td>
-                        <td>{}</td>
+                        <td>
+                            <Link 
+                                to={`/producto/${prod.id}`}
+                                className="btn btn-primary btn-sml me-2"
+                            >
+                                <i class="fa-solid fa-pen"></i>
+                            </Link>
+                            <button className="btn btn-danger btn.sml"
+                                    onClick={()=> handleDelete(prod.id)}
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
                     </tr>
                 ))}
             </tbody>
