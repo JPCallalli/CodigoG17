@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 
 
@@ -9,7 +10,8 @@ export default function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("default");
+    
+    const navigate = useNavigate();
 
     const ERRORS = {
         // mensajeErrorFirebase: "mensaje que quiero mostrar"
@@ -38,12 +40,17 @@ export default function Login() {
         }
     };
     
-    const handleLogin = () => {
-        toast.promise(startLogin(), {
+    const handleLogin = async () => {
+        await toast.promise(startLogin(), {
             pending: "Validando datos...",
             success: "Login Exitoso! 👍",
             error: "Error al Validar, pruebe de nuevo 🤯"
-        })
+        });
+
+        setTimeout(() => {
+            navigate('/products')
+        },3000)
+        
     }
 
   return (

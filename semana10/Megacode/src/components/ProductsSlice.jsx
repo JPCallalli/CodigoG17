@@ -3,9 +3,7 @@ import useData from "../hooks/useAxios";
 import ProductCard from "./ProductCard";
 
 export default function ProductsSlice({ data, columns = 4 }) {
-  // console.log({ columns });
   //data serán unos props más donde yo de una array y en base a ese array busque dibujar mis productos
-
   return (
     <section className="container mx-auto p-4">
       <div className="mb-3 flex justify-between">
@@ -20,7 +18,7 @@ export default function ProductsSlice({ data, columns = 4 }) {
       <div
         className={`grid grid-cols-1 sm:grid-cols-${columns - 2} md:grid-cols-${
           columns - 1
-        } lg:grid-cols-${columns} xl:grid-cols-${columns} gap-4`}
+        } lg:grid-cols-${columns} xl:grid-cols-5 gap-4`}
       >
         {data.map((product) => (
           <div key={product.id}>
@@ -31,3 +29,4 @@ export default function ProductsSlice({ data, columns = 4 }) {
     </section>
   );
 }
+
