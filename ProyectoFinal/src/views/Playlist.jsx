@@ -8,7 +8,6 @@ const Playlist = () => {
 
   return (
     <>
-      <Navbar></Navbar>
       <PlaylistItems></PlaylistItems>
     </>
   )

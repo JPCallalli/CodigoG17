@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import { auth } from "../config/firebaseConfig";
+import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { getStorage, saveStorage } from "../utils/localStorage";
 
 const AuthContext = createContext();
 
@@ -14,15 +13,15 @@ const AuthcontextProvider = ({ children }) => {
         onAuthStateChanged(auth, (userInfo) => {
             if(userInfo){
                 setUser(userInfo);
-                // saveStorage("user", user);
             }else{
                 setUser(null);
-                // saveStorage("user", null);
             }
         })
     }, []);
 
-    return (<AuthContext.Provider value={{user}}>{children}</AuthContext.Provider>)
+    return (<AuthContext.Provider value={{user}}>
+        {children}
+        </AuthContext.Provider>)
     
 ;}
 
