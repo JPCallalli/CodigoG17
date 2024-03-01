@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PlaylistProvider } from "./context/playlistContext";
-import { AuthcontextProvider } from "../context/authContext";
+import { AuthcontextProvider } from "./context/authContext";
 import Home from "../src/views/Home";
 import Playlist from "./views/Playlist";
 import Navbar from "./components/Navbar";
