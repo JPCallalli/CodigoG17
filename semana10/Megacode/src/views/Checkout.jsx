@@ -1,11 +1,32 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/cartContext";
 import Container from "../components/Container";
 import ListProducts from "../components/ListProducts";
 import { useForm } from "react-hook-form";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+// import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer } from "react-leaflet/MapContainer";
+import { TileLayer } from "react-leaflet/TileLayer";
+import { Marker } from "react-leaflet/Marker";
+import LocationMarker from "../components/LocationMarker";
 
 export default function Checkout() {
+
+  const [position, setPosition] = useState(null);
+  const [coords, setCoords] = useState([-12.0630198, -77.0384351]);
+
+  if(navigator.geolocation){
+    // navigator.geolocation.getCurrentPosition(callbackSuccess, callbackerror)
+    navigator.geolocation.getCurrentPosition(
+      (location) =>{
+        const {coords: {latitude, longitude}} = location;
+        setCoords([latitude, longitude]);
+        // setPosition([latitude, longitude]);
+      },
+      (error) =>{
+        console.log(error);
+      })
+  }
+
   const {
     register, //para registrar que inputs va a manejar react-hook-forms
     handleSubmit, //para manejar el submit del formulario react-hook-forms
@@ -29,6 +50,8 @@ export default function Checkout() {
     console.log(data);
   };
 
+  // console.log(watch("fullname")); //para ver los cambios en los inputs
+
   return (
     <Container>
       <h1 className="text-2xl mb-4">Checkout</h1>
@@ -37,7 +60,7 @@ export default function Checkout() {
           <ListProducts products={cart} />
         </div>
         <div>
-          {/* form, al darle como argumento una nueva función a handleSubmit, esta nueva funcion recibira los datos de los inputs registrados */}
+          {/* form, al darle como argumento una nueva función a handleSubmit, esta nueva función recibira los datos de los input registrados */}
           <form onSubmit={handleSubmit(getDataSubmit)}>
             <div className="mb-3">
               <label
@@ -53,10 +76,22 @@ export default function Checkout() {
                   id="nombreCompleto"
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  {...register("fullname", { required: true })}
+                  {...register("fullname", {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 40,
+                  })}
                 />
-                {/* errors.nombrederegistro && muestre un elelemto, un mensaje si es que el error se dispara */}
-                {errors.fullname && <p>El nombre completo es requerido</p>}
+                {/* errors.nombrederegistro && muestre un elemento un mensaje si es que el error se dispara */}
+                {errors.fullname?.type === "required" && (
+                  <p>El nombre es obligatorio</p>
+                )}
+                {errors.fullname?.type === "minLength" && (
+                  <p>El nombre debe tener al menos 5 caracteres</p>
+                )}
+                {errors.fullname?.type === "maxLength" && (
+                  <p>El nombre debe tener menos de 40 caracteres</p>
+                )}
               </div>
             </div>
             <div className="mb-3">
@@ -77,13 +112,22 @@ export default function Checkout() {
                 />
               </div>
             </div>
-            <div className="mb-3 w-full h-72 border-neutral-950">
-              <MapContainer center={[-12.0630198, -77.0384351]} >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={[-12.0630198, -77.0384351]} />
+            {/* Para utilizar el mapContainer tenemos que integrarlo en un elemento que tenga un tamaño predefinido */}
+            <div
+              className=""
+              style={{
+                height: "400px",
+                width: "100%",
+                border: "1px solid black",
+              }}
+            >
+              <MapContainer center={coords} zoom={13}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {/* <Marker position={[-12.0630198, -77.0384351]} /> */}
+                <LocationMarker position={position} setPosition={setPosition} />
               </MapContainer>
             </div>
             <button>Enviar</button>
